@@ -1,27 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Here's an example code to play with/re-write to do the first homework assignment.
-#
-# In /project/projectdirs/astro250/data/hwk1 we have a set of fits files as well as catalogs
-# from these fits files. They are named the same save for the suffix (.fits or .cat). 
-# Some of the .cat files are missing. Write a bash shell script which takes as input 
-# the directory name and prints out the names of the .fits files which are missing their 
-# corresponding .cat files.
-#
+# usage: ./findit.sh FOLDER
+# expects a sidecar of .cat file besides every .fits file. If the .cat file does not exist, return the expected filenames in the stdout
+# Notes:
+# /usr/bin/env bash is used to use the user's choice of bash rather than default bash
+# find with -print0 and xargs -0 option in case of poorly namely filenames. See man page. Newer GNU find and xargs only.
+# parameters:
+# *depth to control how deep you want to search into
+# -pN flag: N is the maxmium no. of processes at a time.
 
-dir=$1
-
-file=junk.fits
-
-cd $dir
-
-for i in *.*
-do
-
-  if [[ $i == $file ]]; then
-    echo $file is in $dir
-  fi
-
-done
-
-cd ..
+find "$1" -maxdepth 1 -mindepth 1 -name "*.fits" -print0 | xargs -0 -i -n1 -P8 bash -c 'expectedFile="${0%.*}.cat"; if [[ ! -e "$expectedFile" ]]; then printf "%s\n" "$expectedFile"; fi' {}
