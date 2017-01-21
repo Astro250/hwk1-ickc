@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 # Here's an example code to play with/re-write to do the first homework assignment.
 #
@@ -24,4 +24,4 @@ do
 
 done
 
-cd ../
+cd ..
