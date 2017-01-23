@@ -2,5 +2,3 @@ language: generic
 script:
   - make dummy
   - make test
-after_success:
-  - make time
