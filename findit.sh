@@ -1,14 +1,16 @@
-#/bin/bash
+#!/usr/bin/env bash
 
-# Here's the first line of code to write to do the first homework assignment.
-#
-# In /scratch2/scratchdirs/nugent/astro250/hwk1 we have a set of fits files as well as catalogs
-# from these fits files. They are named the same save for the suffix (.fits or .cat). 
-# Some of the .cat files are missing. Write a bash shell script which takes as input 
-# the directory name and prints out the names of the .fits files which are missing their 
-# corresponding .cat files. If the directory does not exist, the code should print
-# out an error statement accordingly.
-#
+# usage: ./findit.sh FOLDER
+# expects a sidecar of .cat file besides every .fits file. If the .cat file does not exist, return the expected filenames in the stdout
+# Notes:
+# /usr/bin/env bash is used to use the user's choice of bash rather than default bash
+# parameters:
+# *depth to control how deep you want to search into
 
-dir=$1
-
+find "$1" -maxdepth 1 -mindepth 1 -name "*.fits" -exec bash -c '
+  for f do
+    expectedFile="${f%.*}.cat"
+    if [[ ! -e "$expectedFile" ]]; then
+      printf "%s\n" "$expectedFile"
+    fi
+  done' bash {} +
