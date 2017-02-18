@@ -8,9 +8,9 @@
 # *depth to control how deep you want to search into
 
 find "$1" -maxdepth 1 -mindepth 1 -name "*.fits" -exec bash -c '
-  for f do
-    expectedFile="${f%.*}.cat"
+  for fitsFile do
+    expectedFile="${fitsFile%.*}.cat"
     if [[ ! -e "$expectedFile" ]]; then
-      printf "%s\n" "$f"
+      printf "%s\n" "$fitsFile"
     fi
   done' bash {} +
