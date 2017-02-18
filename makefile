@@ -12,7 +12,7 @@ dummy:
 test: dummy
 	diff=$$(./findit.sh data/hwk1 | sort --version-sort | diff -3 test.txt -); if [[ -z $$diff ]]; then echo "Test passed"; exit 0; else echo "Test failed"; exit 1; fi
 
-time:
+time: dummy
 	time ./findit.sh data/hwk1
 
 clean:
