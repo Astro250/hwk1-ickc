@@ -5,8 +5,8 @@ SHELL := /usr/bin/env bash
 
 dummy:
 	mkdir -p data/hwk1
-	for i in $$(seq 1 1000); do touch "data/hwk1/\n $$i.fits"; done
-	for i in $$(seq 500 1500); do touch "data/hwk1/\n $$i.cat"; done
+	for i in $$(seq 1 1000); do touch "data/hwk1/\n $$i.fits" & done
+	for i in $$(seq 500 1500); do touch "data/hwk1/\n $$i.cat" & done
 	: > test.txt; for i in $$(seq 1 499); do printf "%s\n" "data/hwk1/\n $$i.fits" >> test.txt; done
 
 test: dummy
